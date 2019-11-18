@@ -417,10 +417,5 @@ if ( !class_exists( 'SEOKLTable' ) ) {
             </div>
             <?php
         }
-        public static function insert_data($data) {
-            global $wpdb;
-            $data["date"] = current_time( 'mysql' );
-        	$wpdb->insert($table_name, $data );
-        }
     }
 }

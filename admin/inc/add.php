@@ -5,47 +5,9 @@
 defined( 'ABSPATH' ) or die( 'The wrong way access...' );
 ?>
 <h3>Add New Keyword Link Data</h3>
-<?php
-function saveForm() {
-    if(! isset( $_POST['seokl-addform-action'] ) || ! wp_verify_nonce( $_POST['seokl-addform-action'], 'seokl-addform-nonce' )){
-        ?>
-        <div class="t-message-box settings_tab">
-            <div class="error is-dismissible">
-               <p>Sorry, your nonce was incorrect. Please try again.</p>
-            </div>
-        </div>
-        <?php
-    }
-    else
-    {
-        // if(class_exists("SEOKLPlugin")){
-        //     print_r("SEOKLPlugin");
-        //     //SEOKLPlugin::Authorize();
-        // }
-        // $data=array(
-        //     "keyword" => sanitize_text_field($_POST["keyword"]),
-        // 	"target_url" => sanitize_text_field($_POST["target_url"]),
-        // 	"post_type" => sanitize_text_field($_POST["post_type"]),
-        // 	"specific_pages" => sanitize_text_field($_POST["specific_pages"]),
-        // 	"window_tab" => sanitize_text_field($_POST["window_tab"]),
-        // 	"rel" => sanitize_text_field($_POST["rel"]),
-        // 	"regex" => false,
-        // 	"download" => false
-        // );
-        //print_r($data);
-        // global $wpdb;
-        // global $table_name;
-        // $data["date"] = current_time( 'mysql' );
-        // $wpdb->insert($table_name, $data );
-        ?>
-        <span class="success notice is-dismissible">
-            <p>New keyword was saved in the database!</p>
-        </span>
-        <?php
-    }
-}
-function renderForm(){
-?>
+<div id="seokl-notice">
+    <span></span>
+</div>
 <form method="post" class="seokl-form">
 <?php wp_nonce_field( 'seokl-addform-nonce', 'seokl-addform-action' ); ?>
 <input type="hidden" name="seokl-addform-nonce" value=1 />
@@ -129,9 +91,3 @@ function renderForm(){
     </span>
 </div>
 </form>
-<?php }
-
-    if ( ! empty( $_POST ) && isset( $_POST['seokl-addform-action'] ) ) {
-        saveForm();
-    }
-    renderForm();

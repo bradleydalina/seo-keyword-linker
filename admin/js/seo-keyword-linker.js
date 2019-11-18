@@ -3,7 +3,7 @@
     w.onload = function(){
         var holder = d.querySelector("#keyword-filter div.tablenav.top > div.actions");
         var add = d.createElement("a");
-            add.href='?page='+seokl.plugin_name+'&action=add';
+            add.href='?page=seo-keyword-linker&action=add';
             add.classList.add("button");
             add.classList.add("button-primary");
             add.style.margin="1px 8px 3px -5px";
@@ -11,7 +11,7 @@
         if(holder){
             holder.appendChild(add);
         }
-
+		var notice = d.getElementById("seokl-notice");
 		var save_keyword = d.getElementById("add-keyword");
 		var update_keyword = d.getElementById("update-keyword");
 		var delete_keyword = d.getElementById("delete-keyword");
@@ -28,16 +28,12 @@
 				data.rel = d.getElementById("rel").value;
 				data.regex = false;
 				data.download = false;
-
-				settings.nonce = d.getElementById("seokl-addform-action").value;
-				settings.action = "insert_data";
-				submit_form(data,settings);
+				submit_form(data);
 			});
 		}
 
-		function submit_form(data=null, settings=null){
-			console.log(seokl.ajax_url);
-			if(!data || !settings){return false;}
+		function submit_form(data=null){
+			if(!data){return false;}
 			const xhttp = (window.XMLHttpRequest) ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
                     xhttp.onreadystatechange = function() {
                          if (this.readyState == 4 && this.status == 200) {
@@ -48,6 +44,8 @@
                             console.info(this.statusText);
                             console.table(xhttp.getAllResponseHeaders());
                             console.groupEnd();
+							notice.querySelector("div").classList.add((this.response["error"] ? "error" : "success")+" notice is-dismissible");
+							notice.querySelector("div").innerHTML = "<p>"+this.response["message"]+"</p>";
                         }
                         else if(this.readyState == 4 && this.status != 200)
                         {
@@ -58,13 +56,15 @@
                             console.info(this.statusText);
                             console.table(xhttp.getAllResponseHeaders());
                             console.groupEnd();
+							notice.querySelector("div").classList.add((this.response["error"] ? "error" : "success")+" notice is-dismissible");
+							notice.querySelector("div").innerHTML = "<p>"+this.response["message"]+"</p>";
                         }
                    };
 
-                   xhttp.open('POST', seokl.ajax_url, true);// 'http://'  +  window.location.hostname  + window.location.pathname.replace(/upload.php/,'') + 'admin-ajax.php'
+                   xhttp.open('POST', ajaxurl, true);// 'http://'  +  window.location.hostname  + window.location.pathname.replace(/upload.php/,'') + 'admin-ajax.php'
                    xhttp.responseType = 'json';
                    xhttp.setRequestHeader("Accept",'json');
-                   xhttp.send(JSON.stringify({data:data, settings:settings}));
+                   xhttp.send(JSON.stringify({data:data, nonce:d.getElementById("seokl-addform-action").value,  action:"determine"}));
 		}
     }
 })(window, document);
