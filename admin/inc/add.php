@@ -62,17 +62,40 @@ function renderForm(){
 <div class="seokl-row">
     <span class="seokl-formgroup seokl-column seokl-columns-2">
         <label for="post_type">Post Type</label>
-        <select name="post_type" id="post_type" class="seokl-input">
+        <?php
+        // Get post types
+        $args       = array(
+            'public' => true,
+        );
+        $post_types = get_post_types( $args, 'objects' );
+        ?>
+        <select multiple="multiple" name="post_type[]" id="post_type" class="seokl-input">
             <option value="all">All</option>
-            <option value="page">Page</option>
-            <option value="post">Post</option>
+            <?php foreach ( $post_types as $post_type_obj ):
+                $labels = get_post_type_labels( $post_type_obj );
+                ?>
+                <option value="<?php echo esc_attr( $post_type_obj->name ); ?>"><?php echo esc_html( $labels->name ); ?></option>
+            <?php endforeach; ?>
         </select>
     </span>
     <span class="seokl-formgroup seokl-column seokl-columns-2">
         <label for="specific_pages">Select Pages</label>
         <select name="specific_pages" id="specific_pages" class="seokl-input">
             <option value="all">All</option>
-            <option value="sample-page">Sample Page</option>
+            <?php
+                $args = array(
+                        'post_type' => 'page',
+                        'posts_per_page' => -1,
+                        'post_status' => 'publish'
+                    );
+                $query = new WP_Query($args);
+                if ($query->have_posts() ) :
+                    while ( $query->have_posts() ) : $query->the_post();
+                            echo '<option value="' . get_the_ID() . '">' . get_the_title() . '</option>';
+                    endwhile;
+                    wp_reset_postdata();
+                endif;
+            ?>
         </select>
     </span>
 </div>
