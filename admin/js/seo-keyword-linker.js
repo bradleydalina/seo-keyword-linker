@@ -63,8 +63,14 @@
 
                    xhttp.open('POST', ajaxurl, true);// 'http://'  +  window.location.hostname  + window.location.pathname.replace(/upload.php/,'') + 'admin-ajax.php'
                    xhttp.responseType = 'json';
+				   xhttp.contentType= "application/x-www-form-urlencoded; charset=UTF-8";
                    xhttp.setRequestHeader("Accept",'json');
-                   xhttp.send(JSON.stringify({data:data, nonce:d.getElementById("seokl-addform-action").value,  action:"determine"}));
+				   let formdata = new FormData();
+					   formdata.append("data", data);
+					   formdata.append("nonce", d.getElementById("seokl-addform-action").value);
+					   formdata.append("action", "seokl_crud");
+				   xhttp.send(formdata);
+                   // xhttp.send(JSON.stringify({data:data, nonce:d.getElementById("seokl-addform-action").value,  action:"seokl_crud"}));
 		}
     }
 })(window, document);

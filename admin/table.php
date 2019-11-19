@@ -5,13 +5,13 @@
 defined( 'ABSPATH' ) or die( 'The wrong way access...' );
 
 if(!class_exists('WP_List_Table')){
-    require_once( SEOKL_RELPATH . 'libraries/class-wp-list-table.php' );
+    @require_once( SEOKL_RELPATH . 'libraries/class-wp-list-table.php' );
 }
 if ( !class_exists( 'SEOKLTable' ) ) {
     /**
     * Table Main Class
     */
-    class SEOKLTable extends WP_List_Table {
+    class SEOKLTable extends WP_List_Table_Local {
         /**
          * Constructor, we override the parent to pass our own arguments
          * We usually focus on three parameters: singular and plural labels, as well as whether the class supports AJAX.

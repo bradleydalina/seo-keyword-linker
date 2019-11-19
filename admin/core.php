@@ -47,8 +47,8 @@ if ( !class_exists( 'SEOKLPlugin' ) ) {
             /**
             * Crud Script
             */
-            add_action( 'wp_ajax_determine', array("SEOKLCrud","determine") );
-            add_action( 'wp_ajax_nopriv_determine', array("SEOKLCrud","determine") );
+            add_action( 'wp_ajax_seokl_crud', array("SEOKLCrud","determine") );
+            add_action( 'wp_ajax_nopriv_seokl_crud', array("SEOKLCrud","determine") );
             /**
             * Filters: Triggers before the actual saving of content post
             */
@@ -102,7 +102,7 @@ if ( !class_exists( 'SEOKLPlugin' ) ) {
             if ($pagenow === 'tools.php' && ($hook_suffix ===SEOKL || $hook_suffix ==='tools_page_'.SEOKL)) {
                 wp_enqueue_style(SEOKL, SEOKL_ABSPATH.'admin/css/'.SEOKL.'.css');
                 wp_register_script(SEOKL, SEOKL_ABSPATH.'admin/js/'.SEOKL.'.js', null, 1.0, true);//array('wp-util', 'json2')
-                wp_localize_script( SEOKL, 'determine', array("SEOKLCrud","determine") );
+                wp_localize_script( SEOKL, 'seokl_crud', array("SEOKLCrud","determine") );
                 wp_enqueue_script(SEOKL);
             }
         }
