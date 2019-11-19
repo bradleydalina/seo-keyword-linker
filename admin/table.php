@@ -4,7 +4,7 @@
  */
 defined( 'ABSPATH' ) or die( 'The wrong way access...' );
 
-if(!class_exists('WP_List_Table')){
+if(!class_exists('WP_List_Table_Local')){
     @require_once( SEOKL_RELPATH . 'libraries/class-wp-list-table.php' );
 }
 if ( !class_exists( 'SEOKLTable' ) ) {
