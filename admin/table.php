@@ -391,7 +391,6 @@ if ( !class_exists( 'SEOKLTable' ) ) {
             $SEOKLTable->prepare_items();
             ?>
             <div class="wrap">
-
                 <div id="icon-users" class="icon32"><br/></div>
                 <h2><a rel="noreferrer" target="_blank" href="<?php echo SEOKL_URI;?>"><span class="red">SEO</span>  Keyword Linker</a> <small>Version ( <?php print_r(SEOKL_VERSION);?> ) </small></h2>
                 <p><?php print_r(SEOKL_DESCRIPTION);?></p>
@@ -412,7 +411,6 @@ if ( !class_exists( 'SEOKLTable' ) ) {
                             require_once(SEOKL_RELPATH."admin/inc/list.php");
                         break;
                     }
-
                 ?>
             </div>
             <?php
